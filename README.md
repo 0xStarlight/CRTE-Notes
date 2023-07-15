@@ -3,6 +3,8 @@ This repository contains my notes while preparing for the CRTE (Certified Red Te
 
 Just so you know, these notes are based on my understanding and may only be comprehensive or suitable for some. They are intended to supplement other study materials and should be considered something other than a standalone resource for exam preparation.
 
+You can read my exam review from my blog [CRTE-Review](https://0xstarlight.github.io/posts/CRTE-Exam-Review/)
+
 # Content
 
 1. [Main](./0-main)
