@@ -1,4 +1,4 @@
-![image](https://github.com/0xStarlight/CRTE-Notes/assets/59029171/48e7bfdd-b69e-4bbd-981e-bdc3d61e0499)<h1 style='color:lightblue'> 00 - Total Machines </h1>
+<h1 style='color:lightblue'> 00 - Total Machines </h1>
 
 1. [ ] US-MGMT
 2. [ ] US-HELPDESK
